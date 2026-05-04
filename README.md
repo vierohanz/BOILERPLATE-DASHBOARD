@@ -2,8 +2,6 @@
 
 A modern, clean, and professional Admin Dashboard boilerplate built with the latest web technologies. Designed for speed, scalability, and a premium user experience.
 
-![Dashboard Preview](https://via.placeholder.com/1200x600?text=Premium+Admin+Dashboard+Preview)
-
 ## Features
 
 - **Modern Tech Stack**: React 19, Vite 8, and TypeScript.
@@ -49,10 +47,12 @@ src/
 ## Getting Started
 
 ### 1. Prerequisites
+
 - Node.js (Latest LTS recommended)
 - npm or yarn
 
 ### 2. Installation
+
 ```bash
 # Clone the repository
 git clone https://github.com/your-username/admin-boilerplate.git
@@ -65,12 +65,14 @@ npm install
 ```
 
 ### 3. Development
+
 ```bash
 # Start dev server
 npm run dev
 ```
 
 ### 4. Build
+
 ```bash
 # Build for production
 npm run build
@@ -92,4 +94,3 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ---
 
 Built with ❤️ for rapid development.
-
