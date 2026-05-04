@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { authService } from '../services/auth.service';
+import Cookies from 'js-cookie';
 
 export const useAuthController = () => {
   const [loading, setLoading] = useState(false);
@@ -19,8 +20,9 @@ export const useAuthController = () => {
         }
       };
       
-      localStorage.setItem('app_token', response.token);
-      localStorage.setItem('app_user', JSON.stringify(response.user));
+      // Store token and user in cookies (set expires to 7 days or as needed)
+      Cookies.set('app_token', response.token, { expires: 7 });
+      Cookies.set('app_user', JSON.stringify(response.user), { expires: 7 });
       
       return response;
     } catch (err: any) {
@@ -45,8 +47,8 @@ export const useAuthController = () => {
   };
 
   const logout = () => {
-    localStorage.removeItem('app_token');
-    localStorage.removeItem('app_user');
+    Cookies.remove('app_token');
+    Cookies.remove('app_user');
     window.location.href = '/login'; 
   };
 

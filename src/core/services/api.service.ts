@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { API_CONFIG } from '../config/api.config';
+import Cookies from 'js-cookie';
 
 const apiService = axios.create({
   baseURL: API_CONFIG.BASE_URL,
@@ -12,7 +13,7 @@ const apiService = axios.create({
 
 apiService.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('app_token');
+    const token = Cookies.get('app_token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
