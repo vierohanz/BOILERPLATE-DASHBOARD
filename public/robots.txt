@@ -1,4 +1,2 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://sigasi.web.id/sitemap.xml

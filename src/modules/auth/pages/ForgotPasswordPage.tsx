@@ -4,7 +4,7 @@ import { Mail, ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from '../../../components/ui/Button';
 import toast from 'react-hot-toast';
-import logoLight from '../../../assets/logo.png';
+import logo from '../../../assets/logo.png';
 
 const ForgotPasswordPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -17,10 +17,10 @@ const ForgotPasswordPage: React.FC = () => {
     
     try {
       await new Promise(resolve => setTimeout(resolve, 1500));
-      toast.success('Instruksi pemulihan telah dikirim ke email Anda!');
+      toast.success('Recovery instructions sent to your email!');
       setTimeout(() => navigate('/login'), 2000);
     } catch (err) {
-      toast.error('Gagal mengirim email pemulihan. Silakan coba lagi.');
+      toast.error('Failed to send recovery email. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -39,17 +39,17 @@ const ForgotPasswordPage: React.FC = () => {
           className="flex items-center gap-2 text-slate-500 hover:text-white transition-colors mb-8 group"
         >
           <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
-          <span className="text-xs font-bold uppercase tracking-widest cursor-pointer">Login</span>
+          <span className="text-xs font-bold uppercase tracking-widest cursor-pointer">Back to Login</span>
         </button>
 
         {/* Logo & Text */}
         <div className="flex flex-col items-center mb-10">
           <div className="mb-6">
-            <img src={logoLight} alt="Admin Logo" className="h-10 object-contain" />
+            <img src={logo} alt="Admin Logo" className="h-10 object-contain" />
           </div>
-          <h2 className="text-2xl font-bold text-white text-center mb-2">Lupa Kata Sandi?</h2>
+          <h2 className="text-2xl font-bold text-white text-center mb-2">Forgot Password?</h2>
           <p className="text-slate-400 text-sm text-center font-medium leading-relaxed">
-            Masukkan email Anda dan kami akan mengirimkan instruksi untuk mengatur ulang kata sandi Anda.
+            Enter your email and we'll send you instructions to reset your password.
           </p>
         </div>
 
@@ -57,10 +57,10 @@ const ForgotPasswordPage: React.FC = () => {
         <form onSubmit={handleSubmit} className="space-y-8">
           <div className="space-y-3">
             <label className="text-xs font-bold text-white uppercase tracking-wider ml-1">
-              Email<span className="text-red-500 ml-0.5">*</span>
+              Email Address<span className="text-red-500 ml-0.5">*</span>
             </label>
             <div className="relative group">
-              <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-yellow-400 transition-colors pointer-events-none">
+              <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-primary transition-colors pointer-events-none">
                 <Mail size={18} />
               </div>
               <input
@@ -68,8 +68,8 @@ const ForgotPasswordPage: React.FC = () => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="nama@email.com"
-                className="mt-2 w-full bg-[#242930] border-2 border-transparent focus:border-yellow-400 rounded-xl py-4 pl-12 pr-4 outline-none text-white font-medium transition-all placeholder:text-slate-600"
+                placeholder="name@email.com"
+                className="mt-2 w-full bg-[#242930] border-2 border-transparent focus:border-primary rounded-xl py-4 pl-12 pr-4 outline-none text-white font-medium transition-all placeholder:text-slate-600"
               />
             </div>
           </div>
@@ -79,7 +79,7 @@ const ForgotPasswordPage: React.FC = () => {
             type="submit"
             className="w-full py-5 text-slate-950 font-black"
           >
-            Kirim
+            Send Instructions
           </Button>
         </form>
       </motion.div>

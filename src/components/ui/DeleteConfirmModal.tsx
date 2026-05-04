@@ -15,13 +15,13 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
   isOpen,
   onClose,
   onConfirm,
-  message = "Apakah Anda yakin ingin menghapus data ini?",
+  message = "Are you sure you want to delete this data?",
   loading = false
 }) => {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[20000] flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-20000 flex items-center justify-center p-4">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -35,7 +35,7 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
             className="relative w-full max-w-sm bg-surface-card border border-white/5 rounded-3xl shadow-2xl p-8"
           >
-            <h3 className="text-xl font-bold text-text-main mb-2">Hapus Data?</h3>
+            <h3 className="text-xl font-bold text-text-main mb-2">Confirm Delete</h3>
             <p className="text-sm text-text-muted leading-relaxed mb-8">
               {message}
             </p>
@@ -45,14 +45,14 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
                 onClick={onClose}
                 className="flex-1 px-4 py-3 bg-slate-100 dark:bg-white/5 text-text-muted font-bold text-xs rounded-2xl hover:text-text-main transition-all"
               >
-                Batal
+                Cancel
               </button>
               <button
                 onClick={onConfirm}
                 disabled={loading}
                 className="flex-[1.5] px-4 py-3 bg-rose-500 text-white font-bold text-xs rounded-2xl hover:bg-rose-600 transition-all shadow-lg shadow-rose-500/20 flex items-center justify-center gap-2"
               >
-                {loading ? "Menghapus..." : "Ya, Hapus Sekarang"}
+                {loading ? "Deleting..." : "Yes, Delete Now"}
               </button>
             </div>
           </motion.div>

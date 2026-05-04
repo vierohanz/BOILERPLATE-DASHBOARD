@@ -11,20 +11,20 @@ export const useAuthController = () => {
       setError(null);
       
       const response = {
-        token: 'mock_token_for_sigasi',
+        token: 'mock_token_for_boilerplate',
         user: {
-          name: 'Dinas Kesehatan',
+          name: 'Admin User',
           email: credentials.email,
           role: 'admin'
         }
       };
       
-      localStorage.setItem('sigasi_token', response.token);
-      localStorage.setItem('sigasi_user', JSON.stringify(response.user));
+      localStorage.setItem('app_token', response.token);
+      localStorage.setItem('app_user', JSON.stringify(response.user));
       
       return response;
     } catch (err: any) {
-      setError(err?.message || 'Login gagal. Periksa kembali email dan password Anda.');
+      setError(err?.message || 'Login failed. Please check your email and password.');
       throw err;
     } finally {
       setLoading(false);
@@ -37,7 +37,7 @@ export const useAuthController = () => {
       setError(null);
       return await authService.register(userData);
     } catch (err: any) {
-      setError(err?.message || 'Registrasi gagal.');
+      setError(err?.message || 'Registration failed.');
       throw err;
     } finally {
       setLoading(false);
@@ -45,9 +45,9 @@ export const useAuthController = () => {
   };
 
   const logout = () => {
-    localStorage.removeItem('sigasi_token');
-    localStorage.removeItem('sigasi_user');
-    window.location.href = '/login'; // Redirect ke login
+    localStorage.removeItem('app_token');
+    localStorage.removeItem('app_user');
+    window.location.href = '/login'; 
   };
 
   return {

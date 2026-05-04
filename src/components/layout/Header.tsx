@@ -17,7 +17,6 @@ import { useTheme } from '../../context/ThemeContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png';
-import logoDark from '../../assets/logo_dark.png';
 
 const notifications = [
   { 
@@ -64,7 +63,7 @@ const Header: React.FC = () => {
       <div className="flex items-center">
         <Link to="/" className="hover:opacity-80 transition-opacity">
           <img 
-            src={theme === 'light' ? logoDark : logo} 
+            src={logo} 
             alt="Admin Logo" 
             title="Admin Dashboard Panel"
             loading="eager"
@@ -106,8 +105,8 @@ const Header: React.FC = () => {
                 {/* Header */}
                 <div className="flex items-center justify-between p-5 border-b border-border-subtle">
                   <div>
-                    <p className="text-sm font-black text-text-main">Notifikasi</p>
-                    <p className="text-[10px] text-text-muted font-medium mt-0.5">{notifications.length} baru</p>
+                    <p className="text-sm font-black text-text-main">Notifications</p>
+                    <p className="text-[10px] text-text-muted font-medium mt-0.5">{notifications.length} new</p>
                   </div>
                   <button 
                     onClick={() => setNotifOpen(false)}
@@ -142,7 +141,7 @@ const Header: React.FC = () => {
                 {/* Footer */}
                 <div className="p-3 border-t border-border-subtle">
                   <button className="w-full py-3 rounded-2xl text-[11px] font-bold text-primary hover:bg-primary/5 transition-all uppercase tracking-widest">
-                    Lihat Semua Notifikasi
+                    View All Notifications
                   </button>
                 </div>
               </motion.div>
@@ -186,20 +185,20 @@ const Header: React.FC = () => {
                     <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center group-hover:scale-110 transition-transform">
                       <Shield size={18} />
                     </div>
-                    <span>Keamanan</span>
+                    <span>Security</span>
                   </button>
                   <button className="w-full flex items-center gap-4 p-3.5 rounded-2xl text-text-main hover:bg-slate-50 dark:hover:bg-white/5 transition-all text-sm font-bold group">
                     <div className="w-10 h-10 rounded-xl bg-slate-500/10 text-slate-500 flex items-center justify-center group-hover:scale-110 transition-transform">
                       <Settings size={18} />
                     </div>
-                    <span>Pengaturan</span>
+                    <span>Settings</span>
                   </button>
                   <div className="pt-2 mt-2 border-t border-border-subtle">
                     <button className="w-full flex items-center gap-4 p-3.5 rounded-2xl text-rose-500 hover:bg-rose-500/10 transition-all text-sm font-black group uppercase tracking-widest">
                       <div className="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-500 flex items-center justify-center group-hover:translate-x-1 transition-transform">
                         <LogOut size={18} />
                       </div>
-                      <span>Keluar</span>
+                      <span>Logout</span>
                     </button>
                   </div>
                 </div>

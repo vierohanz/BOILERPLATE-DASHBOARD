@@ -28,14 +28,14 @@ const PlaceholderPage: React.FC<PlaceholderPageProps> = ({ title, description })
         </div>
         
         <div className="space-y-2">
-          <h2 className="text-xl font-black text-text-main uppercase tracking-widest">Fitur Dalam Pengembangan</h2>
+          <h2 className="text-xl font-black text-text-main uppercase tracking-widest">Under Construction</h2>
           <p className="text-text-muted font-medium max-w-md mx-auto">
-            {description || "Halaman ini sedang dalam tahap perancangan antarmuka dan integrasi data SIGASI."}
+            {description || "This page is currently under development and data integration."}
           </p>
         </div>
 
         <button className="px-8 py-3 bg-slate-100 dark:bg-white/5 text-text-muted rounded-xl text-xs font-black uppercase tracking-widest hover:text-text-main transition-all">
-          Kembali Ke Beranda
+          Back to Dashboard
         </button>
       </div>
     </motion.div>

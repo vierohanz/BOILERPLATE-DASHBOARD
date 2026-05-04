@@ -6,7 +6,6 @@ import {
   Trash2, 
   Mail,
   User as UserIcon,
-  CreditCard,
   CheckCircle2,
   Save,
   MailQuestion,
@@ -26,37 +25,29 @@ import { Shield, Filter } from 'lucide-react';
 
 interface User {
   id: number;
-  nik: string;
-  namaLengkap: string;
+  fullName: string;
   email: string;
   role: string;
   isVerified: boolean;
 }
 
 const DUMMY_USERS: User[] = [
-  { id: 1, nik: '', namaLengkap: 'Dinas Kesehatan Provinsi', email: 'dinkes_prov@gmail.com', role: 'dinas prov', isVerified: true },
-  { id: 2, nik: '', namaLengkap: 'Puskesmas Semarang', email: 'puskesmas_smg@gmail.com', role: 'puskesmas', isVerified: true },
-  { id: 3, nik: '3322892717251121', namaLengkap: 'Rais Hannan Rizanto', email: 'rizantohannan@gmail.com', role: 'superadmin', isVerified: true },
-  { id: 4, nik: '4332212135443222', namaLengkap: 'Muhammad Rayhan Maulana Anas', email: 'rayhanzz772@gmail.com', role: 'ortu', isVerified: true },
-  { id: 5, nik: '', namaLengkap: 'Kecamatan Gajahmungkur', email: 'kec_gajah@gmail.com', role: 'kecamatan', isVerified: true },
+  { id: 1, fullName: 'System Administrator', email: 'admin@example.com', role: 'admin', isVerified: true },
+  { id: 2, fullName: 'John Doe', email: 'john@example.com', role: 'editor', isVerified: true },
+  { id: 3, fullName: 'Jane Smith', email: 'jane@example.com', role: 'user', isVerified: true },
+  { id: 4, fullName: 'Marketing Team', email: 'marketing@example.com', role: 'editor', isVerified: true },
 ];
 
 const ROLE_OPTIONS = [
-  { value: 'superadmin', label: 'Superadmin' },
-  { value: 'dinas prov', label: 'Dinas Prov' },
-  { value: 'dinas kota/kab', label: 'Dinas Kota/Kab' },
-  { value: 'puskesmas', label: 'Puskesmas' },
-  { value: 'kecamatan', label: 'Kecamatan' },
-  { value: 'kelurahan', label: 'Kelurahan' },
-  { value: 'rt/rw', label: 'RT/RW' },
-  { value: 'ortu', label: 'Ortu' },
+  { value: 'admin', label: 'Administrator' },
+  { value: 'editor', label: 'Editor' },
+  { value: 'user', label: 'Standard User' },
 ];
 
 const INITIAL_FORM = {
-  nik: '',
-  namaLengkap: '',
+  fullName: '',
   email: '',
-  role: 'ortu',
+  role: 'user',
   isVerified: false,
 };
 
@@ -69,7 +60,7 @@ const UsersPage: React.FC = () => {
 
   const filterFn = useCallback((item: User, search: string) => {
     const q = search.toLowerCase();
-    const matchesSearch = item.namaLengkap.toLowerCase().includes(q) || 
+    const matchesSearch = item.fullName.toLowerCase().includes(q) || 
                          item.email.toLowerCase().includes(q);
     const matchesRole = selectedRoles.length === 0 || selectedRoles.includes(item.role);
     return matchesSearch && matchesRole;
@@ -89,8 +80,7 @@ const UsersPage: React.FC = () => {
   const handleOpenEdit = (item: User) => {
     setFormMode('edit');
     setFormData({
-      nik: item.nik,
-      namaLengkap: item.namaLengkap,
+      fullName: item.fullName,
       email: item.email,
       role: item.role,
       isVerified: item.isVerified,
@@ -107,14 +97,14 @@ const UsersPage: React.FC = () => {
     },
 
     {
-      key: 'namaLengkap',
-      header: 'Nama Lengkap',
+      key: 'fullName',
+      header: 'Full Name',
       sortable: true,
       render: (item) => (
         <div className="flex flex-col">
-          <span className="text-sm font-bold text-text-main uppercase tracking-tight leading-tight">{item.namaLengkap}</span>
+          <span className="text-sm font-bold text-text-main uppercase tracking-tight leading-tight">{item.fullName}</span>
           <div className="flex items-center gap-1.5 mt-1">
-             <div className={`w-1.5 h-1.5 rounded-full ${item.role === 'superadmin' ? 'bg-amber-400' : item.role === 'ortu' ? 'bg-primary' : 'bg-slate-400'}`} />
+             <div className={`w-1.5 h-1.5 rounded-full ${item.role === 'admin' ? 'bg-amber-400' : item.role === 'user' ? 'bg-primary' : 'bg-slate-400'}`} />
              <span className="text-[10px] font-black uppercase tracking-wider text-text-muted/60">{item.role}</span>
           </div>
         </div>
@@ -132,7 +122,7 @@ const UsersPage: React.FC = () => {
     },
     {
       key: 'isVerified',
-      header: 'Verifikasi Email',
+      header: 'Status',
       className: 'text-center',
       render: (item) => (
         <div className="flex justify-center">
@@ -150,7 +140,7 @@ const UsersPage: React.FC = () => {
     },
     {
       key: 'actions',
-      header: 'Aksi',
+      header: 'Actions',
       className: 'w-36',
       render: (item) => (
         <div className="flex items-center gap-1.5">
@@ -175,12 +165,12 @@ const UsersPage: React.FC = () => {
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-black text-text-main tracking-tight uppercase">Manajemen Pengguna</h1>
-          <p className="text-md text-text-muted font-medium mt-0.5">Kelola akses dan verifikasi akun pengguna</p>
+          <h1 className="text-3xl font-black text-text-main tracking-tight uppercase">User Management</h1>
+          <p className="text-md text-text-muted font-medium mt-0.5">Manage user access and account verification</p>
         </div>
         <button className="btn-primary h-11 flex items-center gap-2" onClick={handleOpenAdd}>
           <Plus size={14} strokeWidth={3} />
-          Tambah Pengguna
+          Add User
         </button>
       </div>
 
@@ -191,7 +181,7 @@ const UsersPage: React.FC = () => {
             <SearchInput
               value={search}
               onChange={setSearch}
-              placeholder="Cari nama atau email..."
+              placeholder="Search name or email..."
             />
           </div>
           <MultiSelect
@@ -223,41 +213,32 @@ const UsersPage: React.FC = () => {
 
       <DetailModal 
         isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} 
-        title={formMode === 'add' ? 'Tambah Pengguna' : 'Ubah Pengguna'}
+        title={formMode === 'add' ? 'Add User' : 'Edit User'}
         footer={
           <div className="flex gap-3">
-             <button onClick={() => setIsFormOpen(false)} className="px-8 py-3 bg-slate-100 dark:bg-white/5 text-text-muted font-bold text-xs rounded-2xl">Batal</button>
+             <button onClick={() => setIsFormOpen(false)} className="px-8 py-3 bg-slate-100 dark:bg-white/5 text-text-muted font-bold text-xs rounded-2xl">Cancel</button>
              <button className="btn-primary flex items-center gap-2" onClick={() => setIsFormOpen(false)}>
-               <Save size={14} /> Simpan
+               <Save size={14} /> Save Changes
              </button>
           </div>
         }
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-           {formData.role === 'ortu' && (
-             <Input 
-               label="NIK" icon={<CreditCard />} 
-               placeholder="Contoh: 3322..."
-               value={formData.nik}
-               onChange={(e) => setFormData({ ...formData, nik: e.target.value })}
-             />
-           )}
            <Input 
-             label="Nama Lengkap" icon={<UserIcon />} 
-             placeholder="Contoh: Ahmad Subardjo"
-             value={formData.namaLengkap}
-             onChange={(e) => setFormData({ ...formData, namaLengkap: e.target.value })}
-             className={formData.role !== 'ortu' ? 'sm:col-span-1' : ''}
+             label="Full Name" icon={<UserIcon />} 
+             placeholder="e.g. John Doe"
+             value={formData.fullName}
+             onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
            />
-           <div className={`sm:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6`}>
-             <Input 
-               label="Email" icon={<Mail />} 
-               placeholder="Contoh: user@gmail.com"
-               value={formData.email}
-               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-             />
+           <Input 
+             label="Email Address" icon={<Mail />} 
+             placeholder="e.g. user@example.com"
+             value={formData.email}
+             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+           />
+           <div className={`sm:col-span-2`}>
              <Select
-               label="Role Pengguna"
+               label="User Role"
                icon={<Shield />}
                value={formData.role}
                onChange={(val) => setFormData({ ...formData, role: val })}
@@ -271,7 +252,7 @@ const UsersPage: React.FC = () => {
         isOpen={!!deleteTarget}
         onClose={() => setDeleteTarget(null)}
         onConfirm={() => setDeleteTarget(null)}
-        message={`Apakah Anda yakin ingin menghapus pengguna "${deleteTarget?.namaLengkap}"?`}
+        message={`Are you sure you want to delete user "${deleteTarget?.fullName}"?`}
       />
     </motion.div>
   );

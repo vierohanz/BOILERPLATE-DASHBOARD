@@ -62,7 +62,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, onToggle }) => {
     {
       title: "Main",
       items: [
-        { title: "Pengguna", icon: <Users size={20} />, path: "/dashboard/users" },
+        { title: "Users", icon: <Users size={20} />, path: "/dashboard/users" },
       ]
     }
   ];

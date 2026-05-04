@@ -5,7 +5,7 @@ import { Eye, EyeOff } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from '../../../components/ui/Button';
 import toast from 'react-hot-toast';
-import logoLight from '../../../assets/logo.png';
+import logo from '../../../assets/logo.png';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -18,10 +18,10 @@ const Login: React.FC = () => {
     e.preventDefault();
     try {
       await login({ email, password });
-      toast.success('Selamat datang kembali!');
+      toast.success('Welcome back!');
       navigate('/dashboard');
     } catch (err: any) {
-      toast.error(err.message || 'Email atau kata sandi salah. Silakan coba lagi.');
+      toast.error(err.message || 'Invalid email or password. Please try again.');
       console.error(err);
     }
   };
@@ -36,11 +36,11 @@ const Login: React.FC = () => {
         {/* Logo Section */}
         <div className="flex flex-col items-center mb-10">
           <div className="mb-6">
-            <img src={logoLight} alt="Admin Logo" className="h-10 object-contain" />
+            <img src={logo} alt="Admin Logo" className="h-10 object-contain" />
           </div>
-          <h2 className="text-2xl md:text-2xl font-bold text-white text-center mb-2">Masuk ke akun Anda</h2>
+          <h2 className="text-2xl md:text-2xl font-bold text-white text-center mb-2">Sign in to your account</h2>
           <p className="text-slate-400 text-sm text-center font-medium">
-            Masukkan kredensial Anda untuk mengakses dashboard administrasi.
+            Enter your credentials to access the admin dashboard.
           </p>
         </div>
 
@@ -53,31 +53,33 @@ const Login: React.FC = () => {
             <input
               type="email"
               required
+              placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-2 w-full bg-[#242930] border-2 border-transparent focus:border-yellow-400 rounded-xl py-3.5 px-4 outline-none text-white font-medium transition-all"
+              className="mt-2 w-full bg-[#242930] border-2 border-transparent focus:border-primary rounded-xl py-3.5 px-4 outline-none text-white font-medium transition-all"
             />
           </div>
 
           <div className="space-y-2">
             <div className="flex justify-between items-center px-1">
               <label className="text-xs font-bold text-white uppercase tracking-wider">
-                Kata sandi<span className="text-red-500 ml-0.5">*</span>
+                Password<span className="text-red-500 ml-0.5">*</span>
               </label>
               <span 
                 onClick={() => navigate('/forgot-password')}
-                className="text-[11px] font-bold text-yellow-400 hover:text-yellow-300 cursor-pointer transition-colors uppercase"
+                className="text-[11px] font-bold text-primary hover:text-primary-hover cursor-pointer transition-colors uppercase"
               >
-                Lupa kata sandi?
+                Forgot password?
               </span>
             </div>
             <div className="relative group">
               <input
                 type={showPassword ? "text" : "password"}
                 required
+                placeholder="Enter your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-[#242930] border-2 border-transparent focus:border-yellow-400 rounded-xl py-3.5 px-4 pr-12 outline-none text-white font-medium transition-all"
+                className="w-full bg-[#242930] border-2 border-transparent focus:border-primary rounded-xl py-3.5 px-4 pr-12 outline-none text-white font-medium transition-all"
               />
               <button 
                 type="button"
@@ -95,7 +97,7 @@ const Login: React.FC = () => {
               id="remember" 
               className="w-4 h-4 rounded border-slate-700 bg-slate-800 text-orange-500 focus:ring-orange-500/20" 
             />
-            <label htmlFor="remember" className="text-xs font-bold text-slate-400 cursor-pointer">Ingat saya</label>
+            <label htmlFor="remember" className="text-xs font-bold text-slate-400 cursor-pointer">Remember me</label>
           </div>
 
           {/* Removed inline error since we use toast now */}
@@ -105,7 +107,7 @@ const Login: React.FC = () => {
             type="submit"
             className="w-full py-5 text-slate-950 font-black"
           >
-            Masuk
+            Sign In
           </Button>
         </form>
       </motion.div>

@@ -22,7 +22,7 @@ function App() {
           },
           success: {
             iconTheme: {
-              primary: '#fbbf24',
+              primary: '#6056e7',
               secondary: '#1a1d23',
             },
           },

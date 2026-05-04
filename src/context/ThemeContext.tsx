@@ -11,7 +11,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>(() => {
-    const saved = localStorage.getItem('sigasi_theme');
+    const saved = localStorage.getItem('app_theme');
     if (saved === 'light' || saved === 'dark') return saved;
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   });
@@ -21,9 +21,8 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const root = window.document.documentElement;
     root.classList.remove('light', 'dark');
     root.classList.add(theme);
-    // Force color scheme for some browsers/V4 stuff
     root.style.colorScheme = theme;
-    localStorage.setItem('sigasi_theme', theme);
+    localStorage.setItem('app_theme', theme);
   }, [theme]);
 
   const toggleTheme = () => {

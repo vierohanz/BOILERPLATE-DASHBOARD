@@ -7,7 +7,7 @@ const stats = [
     label: 'Total Users',
     value: '1,250',
     sub: 'Active users this month',
-    color: '#fbbf24', // yellow-400
+    color: '#6056e7', 
     icon: <Users size={20} />,
     path: "M0 30 Q10 25 20 28 T40 15 T60 25 T80 20 T100 25"
   },
@@ -15,7 +15,7 @@ const stats = [
     label: 'Total Revenue',
     value: '$12,450',
     sub: 'Year to date',
-    color: '#60a5fa', // blue-400
+    color: '#60a5fa',
     icon: <TrendingUp size={20} />,
     path: "M0 35 Q10 38 20 30 T40 32 T60 15 T80 28 T100 20"
   },
@@ -38,7 +38,7 @@ const DashboardStats: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: i * 0.1 }}
-          className="bg-surface-card rounded-[2rem] p-8 border border-border-subtle relative overflow-hidden group hover:border-primary/20 transition-all duration-300 shadow-sm dark:shadow-2xl"
+          className="bg-surface-card rounded-4xl p-8 border border-border-subtle relative overflow-hidden group hover:border-primary/20 transition-all duration-300 shadow-sm dark:shadow-2xl"
         >
           <div className="flex justify-between items-start mb-6 relative z-10">
             <div>

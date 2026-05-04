@@ -19,7 +19,7 @@ const distributionData = [
   { label: 'Category D', value: 8, color: '#6366f1' },
 ];
 
-// Data stunting per bulan (2023)
+// Monthly data (2023)
 const monthlyData = [
   { month: 'Jan', value: 16.2 },
   { month: 'Feb', value: 15.8 },
@@ -89,11 +89,9 @@ const DashboardCharts: React.FC = () => {
     return { linePath, areaPath };
   };
 
-  const { linePath, areaPath } = buildAreaPath();
-
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      {/* Chart 1: Bar Chart - Tren Stunting Tahunan */}
+      {/* Chart 1: Bar Chart - Yearly Performance Trend */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -218,41 +216,7 @@ const DashboardCharts: React.FC = () => {
           </div>
         </div>
 
-        {/* Mini Area Chart - Monthly trend */}
-        <div className="mt-5 pt-5 border-t border-border-subtle">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-[10px] font-black text-text-muted uppercase tracking-widest">Monthly Growth 2024</span>
-            <div className="flex items-center gap-1.5">
-              <TrendingDown size={12} className="text-emerald-500" />
-              <span className="text-[10px] font-black text-emerald-500">Increasing</span>
-            </div>
-          </div>
-          <svg viewBox="0 0 100 50" className="w-full h-16 overflow-visible">
-            <defs>
-              <linearGradient id="areaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#fbbf24" stopOpacity="0.3" />
-                <stop offset="100%" stopColor="#fbbf24" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-            <motion.path
-              d={areaPath}
-              fill="url(#areaGrad)"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-            />
-            <motion.path
-              d={linePath}
-              fill="none"
-              stroke="#fbbf24"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 1.5, delay: 0.3 }}
-            />
-          </svg>
-        </div>
+        
       </motion.div>
     </div>
   );

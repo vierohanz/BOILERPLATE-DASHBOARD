@@ -48,7 +48,7 @@ export const DetailModal: React.FC<DetailModalProps> = ({
               
               <div className="relative">
                 <h3 className="text-xl font-black text-text-main tracking-tight uppercase flex items-center gap-3">
-                  <div className="w-1.5 h-6 bg-primary rounded-full shadow-[0_0_12px_rgba(251,191,36,0.5)]" />
+                  <div className="w-1.5 h-6 bg-primary rounded-full" />
                   {title}
                 </h3>
               </div>
@@ -75,7 +75,7 @@ export const DetailModal: React.FC<DetailModalProps> = ({
                   onClick={onClose}
                   className="px-8 py-3 bg-slate-200 dark:bg-white/10 text-text-muted font-bold text-xs rounded-2xl hover:text-text-main hover:bg-slate-300 dark:hover:bg-white/20 transition-all duration-300"
                 >
-                  Tutup
+                  Close
                 </button>
               )}
             </div>
@@ -102,7 +102,7 @@ export const InfoItem: React.FC<InfoItemProps> = ({ label, value, icon }) => (
         {label}
       </p>
       <div className="text-[15px] font-bold text-text-main tracking-tight leading-tight">
-        {value || <span className="text-text-muted/20 italic">Kosong</span>}
+        {value || <span className="text-text-muted/20 italic">Empty</span>}
       </div>
     </div>
   </div>
