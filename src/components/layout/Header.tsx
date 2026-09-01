@@ -84,7 +84,9 @@ const Header: React.FC = () => {
       <div className="flex items-center gap-3">
         {/* Theme Toggle */}
         <button
-          onClick={(e) => toggleTheme((e.currentTarget as HTMLButtonElement).getBoundingClientRect())}
+          onClick={(e) =>
+            toggleTheme((e.currentTarget as HTMLButtonElement).getBoundingClientRect())
+          }
           aria-label="Toggle theme"
           className="relative w-12 h-12 flex items-center justify-center rounded-2xl text-text-muted hover:text-primary hover:bg-slate-50 dark:hover:bg-white/5 transition-all outline-none overflow-hidden"
         >
