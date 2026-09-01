@@ -1,12 +1,11 @@
 import { RouterProvider } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { router } from './routes';
-import { ThemeProvider } from './context/ThemeContext';
 
 function App() {
   return (
-    <ThemeProvider>
-      <Toaster 
+    <>
+      <Toaster
         position="top-center"
         toastOptions={{
           duration: 4000,
@@ -22,7 +21,7 @@ function App() {
           },
           success: {
             iconTheme: {
-              primary: '#6056e7',
+              primary: '#fbbf24',
               secondary: '#1a1d23',
             },
           },
@@ -31,11 +30,11 @@ function App() {
               primary: '#ef4444',
               secondary: '#1a1d23',
             },
-          }
+          },
         }}
       />
       <RouterProvider router={router} />
-    </ThemeProvider>
+    </>
   );
 }
 

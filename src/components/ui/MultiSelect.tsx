@@ -54,18 +54,18 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
 
   return (
     <div className={`relative ${className}`} ref={containerRef}>
-      <div 
+      <div
         onClick={() => setIsOpen(!isOpen)}
         className={`flex items-center gap-3 bg-surface-card border border-border-subtle hover:border-primary/30 transition-all duration-300 ${
-          compact 
-            ? 'w-12 h-12 justify-center rounded-2xl' 
-            : 'px-4 py-3 rounded-2xl min-h-[48px]'
+          compact ? 'w-12 h-12 justify-center rounded-2xl' : 'px-4 py-3 rounded-2xl min-h-[48px]'
         } cursor-pointer shadow-sm`}
       >
-        <div className={`text-text-muted/40 shrink-0 ${compact && value.length > 0 ? 'text-primary' : ''}`}>
+        <div
+          className={`text-text-muted/40 shrink-0 ${compact && value.length > 0 ? 'text-primary' : ''}`}
+        >
           {icon}
         </div>
-        
+
         {!compact && (
           <>
             <div className="flex-1 flex flex-wrap gap-1.5 overflow-hidden">
@@ -75,9 +75,19 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
                 value.slice(0, 1).map((val) => {
                   const label = options.find((o) => o.value === val)?.label;
                   return (
-                    <span key={val} className="px-2 py-0.5 bg-primary/10 text-primary rounded-lg text-xs font-black flex items-center gap-1">
+                    <span
+                      key={val}
+                      className="px-2 py-0.5 bg-primary/10 text-primary rounded-lg text-xs font-black flex items-center gap-1"
+                    >
                       {label}
-                      <X size={10} onClick={(e) => { e.stopPropagation(); toggleOption(val); }} className="hover:text-primary/70 transition-colors" />
+                      <X
+                        size={10}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleOption(val);
+                        }}
+                        className="hover:text-primary/70 transition-colors"
+                      />
                     </span>
                   );
                 })
@@ -91,13 +101,16 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
 
             <div className="flex items-center gap-2 shrink-0">
               {value.length > 0 && (
-                <button onClick={clearAll} className="p-1 text-text-muted/30 hover:text-rose-400 transition-colors">
+                <button
+                  onClick={clearAll}
+                  className="p-1 text-text-muted/30 hover:text-rose-400 transition-colors"
+                >
                   <X size={14} />
                 </button>
               )}
-              <ChevronDown 
-                size={16} 
-                className={`text-text-muted/40 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} 
+              <ChevronDown
+                size={16}
+                className={`text-text-muted/40 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
               />
             </div>
           </>
@@ -131,8 +144,8 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
                     key={option.value}
                     onClick={() => toggleOption(option.value)}
                     className={`flex items-center justify-between px-3 py-2.5 rounded-xl cursor-pointer transition-all duration-200 ${
-                      isSelected 
-                        ? 'bg-primary/10 text-primary font-bold' 
+                      isSelected
+                        ? 'bg-primary/10 text-primary font-bold'
                         : 'text-text-muted hover:bg-slate-50 dark:hover:bg-white/5 hover:text-text-main'
                     }`}
                   >

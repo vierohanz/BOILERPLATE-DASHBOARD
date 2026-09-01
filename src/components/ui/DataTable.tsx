@@ -45,17 +45,22 @@ export function DataTable<T>({
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
-      transition: { 
-        delay: i * 0.03, 
-        duration: 0.25, 
-        ease: 'easeOut' as const 
+      transition: {
+        delay: i * 0.03,
+        duration: 0.25,
+        ease: 'easeOut' as const,
       },
     }),
   };
 
   const SortIcon = ({ columnKey }: { columnKey: string }) => {
     if (sortKey !== columnKey) {
-      return <ArrowUpDown size={12} className="text-text-muted/30 group-hover:text-text-muted/60 transition-colors" />;
+      return (
+        <ArrowUpDown
+          size={12}
+          className="text-text-muted/30 group-hover:text-text-muted/60 transition-colors"
+        />
+      );
     }
     return sortDir === 'asc' ? (
       <ArrowUp size={12} className="text-primary" />
@@ -74,7 +79,9 @@ export function DataTable<T>({
                 <th
                   key={col.key}
                   className={`px-6 py-4 text-left text-[10px] font-black uppercase tracking-[0.2em] text-text-muted/60 ${
-                    col.sortable && onSort ? 'cursor-pointer select-none group hover:text-text-muted transition-colors' : ''
+                    col.sortable && onSort
+                      ? 'cursor-pointer select-none group hover:text-text-muted transition-colors'
+                      : ''
                   } ${col.headerClassName || ''}`}
                   onClick={() => col.sortable && onSort?.(col.key)}
                 >
@@ -93,7 +100,10 @@ export function DataTable<T>({
                 <tr key={`skeleton-${i}`}>
                   {columns.map((col) => (
                     <td key={col.key} className="px-6 py-4">
-                      <div className="h-4 bg-text-muted/10 rounded-lg animate-pulse" style={{ width: `${60 + Math.random() * 30}%` }} />
+                      <div
+                        className="h-4 bg-text-muted/10 rounded-lg animate-pulse"
+                        style={{ width: `${60 + Math.random() * 30}%` }}
+                      />
                     </td>
                   ))}
                 </tr>
@@ -108,7 +118,9 @@ export function DataTable<T>({
                     </div>
                     <div className="space-y-1">
                       <p className="text-sm font-bold text-text-muted/60">{emptyMessage}</p>
-                      <p className="text-xs text-text-muted/40">Coba ubah filter atau kata kunci pencarian</p>
+                      <p className="text-xs text-text-muted/40">
+                        Coba ubah filter atau kata kunci pencarian
+                      </p>
                     </div>
                   </div>
                 </td>
@@ -134,7 +146,7 @@ export function DataTable<T>({
                     >
                       {col.render
                         ? col.render(item, startIndex + index)
-                        : (item as Record<string, unknown>)[col.key] as React.ReactNode}
+                        : ((item as Record<string, unknown>)[col.key] as React.ReactNode)}
                     </td>
                   ))}
                 </motion.tr>

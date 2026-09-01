@@ -15,6 +15,27 @@ interface PaginationProps {
   perPageOptions?: number[];
 }
 
+const NavButton: React.FC<{
+  onClick: () => void;
+  disabled: boolean;
+  children: React.ReactNode;
+  ariaLabel: string;
+}> = ({ onClick, disabled, children, ariaLabel }) => (
+  <button
+    onClick={onClick}
+    disabled={disabled}
+    aria-label={ariaLabel}
+    className={`h-9 w-9 flex items-center justify-center rounded-xl border border-border-subtle bg-surface-card transition-all duration-200 shadow-sm
+      ${
+        disabled
+          ? 'opacity-80 cursor-not-allowed text-text-muted'
+          : 'text-text-main hover:text-primary hover:border-primary/30 active:scale-95'
+      }`}
+  >
+    {children}
+  </button>
+);
+
 export const Pagination: React.FC<PaginationProps> = ({
   page,
   totalPages,
@@ -51,49 +72,22 @@ export const Pagination: React.FC<PaginationProps> = ({
     return pages;
   };
 
-  const NavButton = ({
-    onClick,
-    disabled,
-    children,
-    ariaLabel,
-  }: {
-    onClick: () => void;
-    disabled: boolean;
-    children: React.ReactNode;
-    ariaLabel: string;
-  }) => (
-    <button
-      onClick={onClick}
-      disabled={disabled}
-      aria-label={ariaLabel}
-      className={`h-9 w-9 flex items-center justify-center rounded-xl border border-border-subtle bg-surface-card transition-all duration-200 shadow-sm
-        ${disabled 
-          ? 'opacity-80 cursor-not-allowed text-text-muted' 
-          : 'text-text-main hover:text-primary hover:border-primary/30 active:scale-95'
-        }`}
-    >
-      {children}
-    </button>
-  );
-
   return (
     <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
       {/* Left: Info & PerPage */}
       <div className="flex items-center gap-4">
         <span className="text-xs font-semibold text-text-muted invisible sm:visible">
           Menampilkan{' '}
-          <span className="text-text-main font-bold">{totalItems === 0 ? 0 : startIndex + 1}</span>
-          –
-          <span className="text-text-main font-bold">{endIndex}</span>
-          {' '}dari{' '}
+          <span className="text-text-main font-bold">{totalItems === 0 ? 0 : startIndex + 1}</span>–
+          <span className="text-text-main font-bold">{endIndex}</span> dari{' '}
           <span className="text-text-main font-bold">{totalItems}</span>
         </span>
 
         <div className="flex items-center gap-3">
-          <Select 
-            value={perPage} 
+          <Select
+            value={perPage}
             onChange={(val) => onPerPageChange(Number(val))}
-            options={perPageOptions.map(o => ({ value: o, label: String(o) }))}
+            options={perPageOptions.map((o) => ({ value: o, label: String(o) }))}
             className="w-20"
             position="up"
             variant="grid"
@@ -106,7 +100,11 @@ export const Pagination: React.FC<PaginationProps> = ({
         <NavButton onClick={() => onPageChange(1)} disabled={page <= 1} ariaLabel="Halaman pertama">
           <ChevronsLeft size={18} strokeWidth={2.5} />
         </NavButton>
-        <NavButton onClick={() => onPageChange(page - 1)} disabled={page <= 1} ariaLabel="Halaman sebelumnya">
+        <NavButton
+          onClick={() => onPageChange(page - 1)}
+          disabled={page <= 1}
+          ariaLabel="Halaman sebelumnya"
+        >
           <ChevronLeft size={18} strokeWidth={2.5} />
         </NavButton>
 
@@ -134,10 +132,18 @@ export const Pagination: React.FC<PaginationProps> = ({
           )
         )}
 
-        <NavButton onClick={() => onPageChange(page + 1)} disabled={page >= totalPages} ariaLabel="Halaman berikutnya">
+        <NavButton
+          onClick={() => onPageChange(page + 1)}
+          disabled={page >= totalPages}
+          ariaLabel="Halaman berikutnya"
+        >
           <ChevronRight size={18} strokeWidth={2.5} />
         </NavButton>
-        <NavButton onClick={() => onPageChange(totalPages)} disabled={page >= totalPages} ariaLabel="Halaman terakhir">
+        <NavButton
+          onClick={() => onPageChange(totalPages)}
+          disabled={page >= totalPages}
+          ariaLabel="Halaman terakhir"
+        >
           <ChevronsRight size={18} strokeWidth={2.5} />
         </NavButton>
       </div>

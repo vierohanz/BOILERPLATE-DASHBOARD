@@ -15,8 +15,8 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
   isOpen,
   onClose,
   onConfirm,
-  message = "Are you sure you want to delete this data?",
-  loading = false
+  message = 'Are you sure you want to delete this data?',
+  loading = false,
 }) => {
   return (
     <AnimatePresence>
@@ -36,10 +36,8 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
             className="relative w-full max-w-sm bg-surface-card border border-white/5 rounded-3xl shadow-2xl p-8"
           >
             <h3 className="text-xl font-bold text-text-main mb-2">Confirm Delete</h3>
-            <p className="text-sm text-text-muted leading-relaxed mb-8">
-              {message}
-            </p>
-            
+            <p className="text-sm text-text-muted leading-relaxed mb-8">{message}</p>
+
             <div className="flex gap-3">
               <button
                 onClick={onClose}
@@ -52,7 +50,7 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
                 disabled={loading}
                 className="flex-[1.5] px-4 py-3 bg-rose-500 text-white font-bold text-xs rounded-2xl hover:bg-rose-600 transition-all shadow-lg shadow-rose-500/20 flex items-center justify-center gap-2"
               >
-                {loading ? "Deleting..." : "Yes, Delete Now"}
+                {loading ? 'Deleting...' : 'Yes, Delete Now'}
               </button>
             </div>
           </motion.div>

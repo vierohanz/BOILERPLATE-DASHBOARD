@@ -17,7 +17,7 @@ export const DetailModal: React.FC<DetailModalProps> = ({
   title,
   children,
   footer,
-  maxWidth = 'max-w-2xl'
+  maxWidth = 'max-w-2xl',
 }) => {
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) onClose();
@@ -45,32 +45,36 @@ export const DetailModal: React.FC<DetailModalProps> = ({
             {/* Header with Premium Gradient Accent */}
             <div className="relative px-8 py-7 flex items-center justify-between overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-full bg-linear-to-br from-primary/5 via-transparent to-transparent opacity-50" />
-              
+
               <div className="relative">
                 <h3 className="text-xl font-black text-text-main tracking-tight uppercase flex items-center gap-3">
                   <div className="w-1.5 h-6 bg-primary rounded-full" />
                   {title}
                 </h3>
               </div>
-              
+
               <button
                 onClick={onClose}
                 className="relative group w-11 h-11 rounded-2xl flex items-center justify-center text-text-muted hover:text-text-main bg-slate-100/50 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 transition-all duration-300"
               >
-                <X size={18} strokeWidth={2.5} className="group-hover:rotate-90 transition-transform duration-300" />
+                <X
+                  size={18}
+                  strokeWidth={2.5}
+                  className="group-hover:rotate-90 transition-transform duration-300"
+                />
               </button>
             </div>
 
             <div className="h-px w-full bg-linear-to-r from-transparent via-border-subtle to-transparent" />
 
             {/* Body */}
-            <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
-              {children}
-            </div>
+            <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">{children}</div>
 
             {/* Footer */}
             <div className="px-8 py-7 flex flex-col sm:flex-row justify-end gap-4">
-              {footer ? footer : (
+              {footer ? (
+                footer
+              ) : (
                 <button
                   onClick={onClose}
                   className="px-8 py-3 bg-slate-200 dark:bg-white/10 text-text-muted font-bold text-xs rounded-2xl hover:text-text-main hover:bg-slate-300 dark:hover:bg-white/20 transition-all duration-300"
@@ -95,7 +99,9 @@ interface InfoItemProps {
 export const InfoItem: React.FC<InfoItemProps> = ({ label, value, icon }) => (
   <div className="group relative flex items-center gap-5 p-5 rounded-3xl border border-border-subtle/40 bg-white/40 dark:bg-white/2 hover:bg-white/60 dark:hover:bg-white/5 hover:border-primary/20 transition-all duration-300 shadow-sm hover:shadow-md">
     <div className="w-12 h-12 rounded-2xl bg-white dark:bg-slate-900 border border-border-subtle/50 flex items-center justify-center text-text-muted/40 group-hover:text-primary group-hover:bg-primary/5 group-hover:border-primary/20 transition-all duration-300">
-      {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<any>, { size: 20, strokeWidth: 2.5 }) : icon}
+      {React.isValidElement(icon)
+        ? React.cloneElement(icon as React.ReactElement<any>, { size: 20, strokeWidth: 2.5 })
+        : icon}
     </div>
     <div className="flex-1">
       <p className="text-xs font-bold text-text-muted/60 mb-1 group-hover:text-primary transition-colors">

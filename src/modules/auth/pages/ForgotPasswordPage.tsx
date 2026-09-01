@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Mail, ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Button } from '../../../components/ui/Button';
+import { Button } from '@/components/ui';
 import toast from 'react-hot-toast';
-import logo from '../../../assets/logo.png';
+import logo from '@/assets/logo.png';
 
 const ForgotPasswordPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -14,12 +14,12 @@ const ForgotPasswordPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    
+
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await new Promise((resolve) => setTimeout(resolve, 1500));
       toast.success('Recovery instructions sent to your email!');
       setTimeout(() => navigate('/login'), 2000);
-    } catch (err) {
+    } catch {
       toast.error('Failed to send recovery email. Please try again.');
     } finally {
       setLoading(false);
@@ -28,18 +28,20 @@ const ForgotPasswordPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#0f1115] flex items-center justify-center p-6 font-sans">
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-[480px] bg-[#1a1d23] rounded-3xl p-10 md:p-14 shadow-2xl border border-white/5"
       >
         {/* Back Link */}
-        <button 
+        <button
           onClick={() => navigate('/login')}
           className="flex items-center gap-2 text-slate-500 hover:text-white transition-colors mb-8 group"
         >
           <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
-          <span className="text-xs font-bold uppercase tracking-widest cursor-pointer">Back to Login</span>
+          <span className="text-xs font-bold uppercase tracking-widest cursor-pointer">
+            Back to Login
+          </span>
         </button>
 
         {/* Logo & Text */}

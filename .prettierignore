@@ -1,0 +1,8 @@
+node_modules
+dist
+dist-ssr
+bun.lock
+bun.lockb
+.vscode
+.idea
+*.local

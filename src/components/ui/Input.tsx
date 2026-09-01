@@ -16,7 +16,9 @@ export const Input: React.FC<InputProps> = ({ label, icon, className = '', ...pr
       <div className="relative">
         {icon && (
           <div className="absolute inset-y-0 left-0 pl-4.5 flex items-center pointer-events-none text-text-muted/30 group-focus-within/field:text-primary transition-all duration-300">
-            {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement<any>, { size: 18, strokeWidth: 2.5 }) : icon}
+            {React.isValidElement(icon)
+              ? React.cloneElement(icon as React.ReactElement<any>, { size: 18, strokeWidth: 2.5 })
+              : icon}
           </div>
         )}
         <input

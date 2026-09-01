@@ -20,7 +20,9 @@ const StatCard: React.FC<StatCardProps> = ({ label, value, icon, trend, index })
       <div className="space-y-3">
         <p className="text-sm font-medium text-text-muted">{label}</p>
         <h3 className="text-3xl font-bold tracking-tight">{value}</h3>
-        <p className={`text-xs font-semibold ${trend.startsWith('+') ? 'text-emerald-400' : 'text-rose-400'}`}>
+        <p
+          className={`text-xs font-semibold ${trend.startsWith('+') ? 'text-emerald-400' : 'text-rose-400'}`}
+        >
           {trend} <span className="text-text-muted font-normal">dari bulan lalu</span>
         </p>
       </div>

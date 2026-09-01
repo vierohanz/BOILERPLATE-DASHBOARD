@@ -1,32 +1,36 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { 
-  Bell, 
-  ChevronDown, 
-  User, 
-  LogOut, 
-  Settings, 
-  Shield, 
-  Moon, 
+import {
+  Bell,
+  ChevronDown,
+  User,
+  LogOut,
+  Settings,
+  Shield,
+  Moon,
   Sun,
   AlertTriangle,
   CheckCircle2,
   Info,
-  X
+  X,
 } from 'lucide-react';
-import { useTheme } from '../../context/ThemeContext';
+import { useThemeStore, useAuthStore } from '@/stores';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import logo from '../../assets/logo.png';
+import { Link, useNavigate } from 'react-router-dom';
+import logo from '@/assets/logo.png';
 
 const notifications = [
-  { 
-    id: 1, type: 'info', time: '5 mins ago',
-    title: 'Welcome to Boilerplate', 
+  {
+    id: 1,
+    type: 'info',
+    time: '5 mins ago',
+    title: 'Welcome to Boilerplate',
     desc: 'This is a clean admin dashboard boilerplate.',
   },
-  { 
-    id: 2, type: 'success', time: '1 hour ago',
-    title: 'System Online', 
+  {
+    id: 2,
+    type: 'success',
+    time: '1 hour ago',
+    title: 'System Online',
     desc: 'All systems are running smoothly.',
   },
 ];
@@ -38,7 +42,9 @@ const typeConfig = {
 };
 
 const Header: React.FC = () => {
-  const { theme, toggleTheme } = useTheme();
+  const { theme, toggleTheme } = useThemeStore();
+  const { user, logout } = useAuthStore();
+  const navigate = useNavigate();
   const [profileOpen, setProfileOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
@@ -62,14 +68,14 @@ const Header: React.FC = () => {
       {/* Brand Logo */}
       <div className="flex items-center">
         <Link to="/" className="hover:opacity-80 transition-opacity">
-          <img 
-            src={logo} 
-            alt="Admin Logo" 
+          <img
+            src={logo}
+            alt="Admin Logo"
             title="Admin Dashboard Panel"
             loading="eager"
             width="120"
             height="32"
-            className="h-7 w-auto object-contain" 
+            className="h-7 w-auto object-contain"
           />
         </Link>
       </div>
@@ -77,17 +83,45 @@ const Header: React.FC = () => {
       {/* Actions */}
       <div className="flex items-center gap-3">
         {/* Theme Toggle */}
-        <button 
-          onClick={toggleTheme}
-          className="w-12 h-12 flex items-center justify-center rounded-2xl text-text-muted hover:text-primary hover:bg-slate-50 dark:hover:bg-white/5 transition-all outline-none"
+        <button
+          onClick={(e) => toggleTheme((e.currentTarget as HTMLButtonElement).getBoundingClientRect())}
+          aria-label="Toggle theme"
+          className="relative w-12 h-12 flex items-center justify-center rounded-2xl text-text-muted hover:text-primary hover:bg-slate-50 dark:hover:bg-white/5 transition-all outline-none overflow-hidden"
         >
-          {theme === 'light' ? <Sun size={22} className="text-primary" /> : <Moon size={22} className="text-primary" />}
+          <AnimatePresence mode="wait" initial={false}>
+            {theme === 'light' ? (
+              <motion.span
+                key="sun"
+                initial={{ rotate: -90, scale: 0, opacity: 0 }}
+                animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                exit={{ rotate: 90, scale: 0, opacity: 0 }}
+                transition={{ duration: 0.25, ease: 'easeInOut' }}
+                className="absolute inset-0 flex items-center justify-center"
+              >
+                <Sun size={22} className="text-primary" />
+              </motion.span>
+            ) : (
+              <motion.span
+                key="moon"
+                initial={{ rotate: 90, scale: 0, opacity: 0 }}
+                animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                exit={{ rotate: -90, scale: 0, opacity: 0 }}
+                transition={{ duration: 0.25, ease: 'easeInOut' }}
+                className="absolute inset-0 flex items-center justify-center"
+              >
+                <Moon size={22} className="text-primary" />
+              </motion.span>
+            )}
+          </AnimatePresence>
         </button>
 
         {/* Notifications */}
         <div className="relative" ref={notifRef}>
-          <button 
-            onClick={() => { setNotifOpen(!notifOpen); setProfileOpen(false); }}
+          <button
+            onClick={() => {
+              setNotifOpen(!notifOpen);
+              setProfileOpen(false);
+            }}
             className="w-12 h-12 flex items-center justify-center rounded-2xl text-text-muted hover:text-text-main hover:bg-slate-50 dark:hover:bg-white/5 transition-all relative outline-none"
           >
             <Bell size={22} />
@@ -96,7 +130,7 @@ const Header: React.FC = () => {
 
           <AnimatePresence>
             {notifOpen && (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 15, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 15, scale: 0.95 }}
@@ -106,9 +140,11 @@ const Header: React.FC = () => {
                 <div className="flex items-center justify-between p-5 border-b border-border-subtle">
                   <div>
                     <p className="text-sm font-black text-text-main">Notifications</p>
-                    <p className="text-[10px] text-text-muted font-medium mt-0.5">{notifications.length} new</p>
+                    <p className="text-[10px] text-text-muted font-medium mt-0.5">
+                      {notifications.length} new
+                    </p>
                   </div>
-                  <button 
+                  <button
                     onClick={() => setNotifOpen(false)}
                     className="w-8 h-8 flex items-center justify-center rounded-xl text-text-muted hover:text-text-main hover:bg-slate-50 dark:hover:bg-white/5 transition-all"
                   >
@@ -125,13 +161,21 @@ const Header: React.FC = () => {
                         key={notif.id}
                         className="w-full flex items-start gap-3.5 p-3.5 rounded-2xl hover:bg-slate-50 dark:hover:bg-white/5 transition-all text-left group"
                       >
-                        <div className={`w-9 h-9 rounded-xl ${config.bg} ${config.color} flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-110 transition-transform`}>
+                        <div
+                          className={`w-9 h-9 rounded-xl ${config.bg} ${config.color} flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-110 transition-transform`}
+                        >
                           {config.icon}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-xs font-bold text-text-main leading-tight">{notif.title}</p>
-                          <p className="text-[11px] text-text-muted mt-1 leading-relaxed line-clamp-2">{notif.desc}</p>
-                          <p className="text-[9px] text-text-muted/60 mt-1.5 font-bold uppercase tracking-wider">{notif.time}</p>
+                          <p className="text-xs font-bold text-text-main leading-tight">
+                            {notif.title}
+                          </p>
+                          <p className="text-[11px] text-text-muted mt-1 leading-relaxed line-clamp-2">
+                            {notif.desc}
+                          </p>
+                          <p className="text-[9px] text-text-muted/60 mt-1.5 font-bold uppercase tracking-wider">
+                            {notif.time}
+                          </p>
                         </div>
                       </button>
                     );
@@ -153,31 +197,48 @@ const Header: React.FC = () => {
 
         {/* Profile Dropdown */}
         <div className="relative" ref={profileRef}>
-          <button 
-            onClick={() => { setProfileOpen(!profileOpen); setNotifOpen(false); }}
+          <button
+            onClick={() => {
+              setProfileOpen(!profileOpen);
+              setNotifOpen(false);
+            }}
             className="flex items-center gap-3 p-1.5 rounded-2xl hover:bg-slate-50 dark:hover:bg-white/5 transition-all outline-none group"
           >
             <div className="w-11 h-11 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-border-subtle group-hover:border-primary/30 transition-all overflow-hidden shadow-inner">
-               <User size={20} className="text-text-muted group-hover:text-primary transition-colors" />
+              <User
+                size={20}
+                className="text-text-muted group-hover:text-primary transition-colors"
+              />
             </div>
             <div className="hidden lg:block text-left mr-1">
-              <p className="text-[11px] font-black text-text-main uppercase leading-tight">Admin User</p>
-              <p className="text-[9px] font-bold text-text-muted uppercase tracking-wide">Super Administrator</p>
+              <p className="text-[11px] font-black text-text-main uppercase leading-tight">
+                {user?.name || 'Admin User'}
+              </p>
+              <p className="text-[9px] font-bold text-text-muted uppercase tracking-wide">
+                {user?.role || 'Super Administrator'}
+              </p>
             </div>
-            <ChevronDown size={16} className={`text-text-muted transition-transform duration-300 ${profileOpen ? 'rotate-180' : ''}`} />
+            <ChevronDown
+              size={16}
+              className={`text-text-muted transition-transform duration-300 ${profileOpen ? 'rotate-180' : ''}`}
+            />
           </button>
 
           <AnimatePresence>
             {profileOpen && (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 15, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 15, scale: 0.95 }}
                 className="absolute right-0 mt-3 w-72 bg-surface-card border border-border-subtle rounded-3xl shadow-2xl p-3 z-9999 backdrop-blur-xl"
               >
                 <div className="p-4 border-b border-border-subtle mb-2">
-                   <p className="text-xs font-black text-text-main uppercase tracking-widest leading-none">Admin User</p>
-                   <p className="text-[10px] text-text-muted mt-2 font-medium">admin@example.com</p>
+                  <p className="text-xs font-black text-text-main uppercase tracking-widest leading-none">
+                    {user?.name || 'Admin User'}
+                  </p>
+                  <p className="text-[10px] text-text-muted mt-2 font-medium">
+                    {user?.email || 'admin@example.com'}
+                  </p>
                 </div>
 
                 <div className="space-y-1">
@@ -194,7 +255,13 @@ const Header: React.FC = () => {
                     <span>Settings</span>
                   </button>
                   <div className="pt-2 mt-2 border-t border-border-subtle">
-                    <button className="w-full flex items-center gap-4 p-3.5 rounded-2xl text-rose-500 hover:bg-rose-500/10 transition-all text-sm font-black group uppercase tracking-widest">
+                    <button
+                      onClick={() => {
+                        logout();
+                        navigate('/login');
+                      }}
+                      className="w-full flex items-center gap-4 p-3.5 rounded-2xl text-rose-500 hover:bg-rose-500/10 transition-all text-sm font-black group uppercase tracking-widest"
+                    >
                       <div className="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-500 flex items-center justify-center group-hover:translate-x-1 transition-transform">
                         <LogOut size={18} />
                       </div>

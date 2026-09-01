@@ -8,7 +8,7 @@ interface PlaceholderPageProps {
 
 const PlaceholderPage: React.FC<PlaceholderPageProps> = ({ title, description }) => {
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="space-y-8"
@@ -26,11 +26,13 @@ const PlaceholderPage: React.FC<PlaceholderPageProps> = ({ title, description })
             <div className="w-12 h-12 border-4 border-primary rounded-full border-t-transparent animate-spin" />
           </motion.div>
         </div>
-        
+
         <div className="space-y-2">
-          <h2 className="text-xl font-black text-text-main uppercase tracking-widest">Under Construction</h2>
+          <h2 className="text-xl font-black text-text-main uppercase tracking-widest">
+            Under Construction
+          </h2>
           <p className="text-text-muted font-medium max-w-md mx-auto">
-            {description || "This page is currently under development and data integration."}
+            {description || 'This page is currently under development and data integration.'}
           </p>
         </div>
 

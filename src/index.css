@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
@@ -24,29 +24,30 @@
 :root {
   --primary: #6056e7;
   --primary-hover: #4f46e5;
-  --bg-main: #f9fafb;      
-  --bg-sidebar: #ffffff;   
-  --bg-topbar: #ffffff;    
-  --bg-card: #ffffff;      
-  --text-main: #111827;    
-  --text-muted: #64748b;   
+  --bg-main: #f9fafb;
+  --bg-sidebar: #ffffff;
+  --bg-topbar: #ffffff;
+  --bg-card: #ffffff;
+  --text-main: #111827;
+  --text-muted: #64748b;
   --border-color: #f1f5f9;
 }
 
 .dark {
   --primary: #6056e7;
   --primary-hover: #4f46e5;
-  --bg-main: #090b0e;      
-  --bg-sidebar: #111318;   
-  --bg-topbar: #111318;    
-  --bg-card: #1a1d23;      
+  --bg-main: #090b0e;
+  --bg-sidebar: #111318;
+  --bg-topbar: #111318;
+  --bg-card: #1a1d23;
   --text-main: #f3f4f6;
   --text-muted: #9ca3af;
-  --border-color: rgba(255,255,255,0.03);
+  --border-color: rgba(255, 255, 255, 0.03);
 }
 
 @layer base {
-  html, body {
+  html,
+  body {
     @apply h-full;
     -webkit-tap-highlight-color: transparent;
     -webkit-font-smoothing: antialiased;
@@ -60,13 +61,20 @@
     @apply antialiased transition-colors duration-200;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-display);
     @apply font-black tracking-tight;
   }
 
   /* Resetting focus states without causing parser crashes */
-  :focus, :active, :focus-visible {
+  :focus,
+  :active,
+  :focus-visible {
     outline: none !important;
     box-shadow: none !important;
   }
@@ -77,11 +85,11 @@
     height: 6px;
     display: block !important;
   }
-  
+
   .custom-scrollbar::-webkit-scrollbar-track {
     @apply bg-transparent;
   }
-  
+
   .custom-scrollbar::-webkit-scrollbar-thumb {
     @apply bg-slate-200 dark:bg-white/10 rounded-full hover:bg-slate-300 dark:hover:bg-white/20 transition-colors;
   }
@@ -103,7 +111,7 @@
   .glass-card {
     @apply bg-surface-card border border-border-subtle rounded-3xl shadow-sm dark:shadow-lg transition-colors duration-200;
   }
-  
+
   .glass-sidebar {
     @apply bg-surface-sidebar border-r border-border-subtle transition-colors duration-200;
   }
@@ -125,3 +133,19 @@
     display: none !important;
   }
 }
+
+/* ─── View Transition: Theme Toggle Ripple ─────────────────── */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+}
+

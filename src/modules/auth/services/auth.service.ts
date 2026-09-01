@@ -1,5 +1,5 @@
-import apiService from '../../../core/services/api.service';
-import { API_CONFIG } from '../../../core/config/api.config';
+import apiService from '@/core/services/api.service';
+import { API_CONFIG } from '@/core/config/api.config';
 
 export const authService = {
   login: async (credentials: any) => {
@@ -16,5 +16,5 @@ export const authService = {
 
   getCurrentUser: async () => {
     return apiService.get(API_CONFIG.ENDPOINTS.AUTH.ME);
-  }
+  },
 };

@@ -1,13 +1,13 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuthStore } from '@/stores';
 
 interface AuthGuardProps {
   children: React.ReactNode;
 }
 
 const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
-  const { isAuthenticated } = useAuth();
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const location = useLocation();
 
   if (!isAuthenticated) {

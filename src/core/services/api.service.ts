@@ -7,7 +7,7 @@ const apiService = axios.create({
   timeout: API_CONFIG.TIMEOUT,
   headers: {
     'Content-Type': 'application/json',
-    'Accept': 'application/json',
+    Accept: 'application/json',
   },
 });
 

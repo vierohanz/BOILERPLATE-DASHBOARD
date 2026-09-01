@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { dashboardService } from '../services/dashboard.service';
 
 // Mock Fallback Data (Jika API Belum Siap)
@@ -13,7 +13,7 @@ const MOCK_FALLBACK = {
     { id: 1, user: 'Siti Aminah', action: 'mendaftar anggota baru', time: '2 menit yang lalu' },
     { id: 2, user: 'Budi Raharjo', action: 'mengupdate profil', time: '15 menit yang lalu' },
     { id: 3, user: 'Agus Setiawan', action: 'menyelesaikan verifikasi', time: '1 jam yang lalu' },
-  ]
+  ],
 };
 
 export const useDashboardController = () => {
@@ -21,7 +21,7 @@ export const useDashboardController = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -37,16 +37,16 @@ export const useDashboardController = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     loadData();
-  }, []);
+  }, [loadData]);
 
   return {
     data,
     loading,
     error,
-    refresh: loadData
+    refresh: loadData,
   };
 };

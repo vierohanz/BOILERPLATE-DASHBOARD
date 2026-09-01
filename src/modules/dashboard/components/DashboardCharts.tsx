@@ -19,24 +19,7 @@ const distributionData = [
   { label: 'Category D', value: 8, color: '#6366f1' },
 ];
 
-// Monthly data (2023)
-const monthlyData = [
-  { month: 'Jan', value: 16.2 },
-  { month: 'Feb', value: 15.8 },
-  { month: 'Mar', value: 16.5 },
-  { month: 'Apr', value: 15.1 },
-  { month: 'Mei', value: 14.8 },
-  { month: 'Jun', value: 15.4 },
-  { month: 'Jul', value: 14.2 },
-  { month: 'Ags', value: 13.9 },
-  { month: 'Sep', value: 14.5 },
-  { month: 'Okt', value: 13.7 },
-  { month: 'Nov', value: 13.2 },
-  { month: 'Des', value: 12.8 },
-];
-
-const maxYearly = Math.max(...yearlyData.map(d => d.rate));
-const maxMonthly = Math.max(...monthlyData.map(d => d.value));
+const maxYearly = Math.max(...yearlyData.map((d) => d.rate));
 const totalDistribution = distributionData.reduce((a, b) => a + b.value, 0);
 
 const DashboardCharts: React.FC = () => {
@@ -45,7 +28,10 @@ const DashboardCharts: React.FC = () => {
 
   // Build donut paths
   const buildDonut = () => {
-    const cx = 80, cy = 80, r = 60, strokeWidth = 24;
+    const cx = 80,
+      cy = 80,
+      r = 60,
+      strokeWidth = 24;
     const circumference = 2 * Math.PI * r;
     let offset = 0;
     return distributionData.map((item, i) => {
@@ -56,7 +42,9 @@ const DashboardCharts: React.FC = () => {
       return (
         <circle
           key={i}
-          cx={cx} cy={cy} r={r}
+          cx={cx}
+          cy={cy}
+          r={r}
           fill="none"
           stroke={item.color}
           strokeWidth={activeSlice === i ? strokeWidth + 6 : strokeWidth}
@@ -71,27 +59,9 @@ const DashboardCharts: React.FC = () => {
     });
   };
 
-  // Build area chart path for monthly data
-  const buildAreaPath = () => {
-    const w = 100, h = 50;
-    const padding = 2;
-    const stepX = (w - padding * 2) / (monthlyData.length - 1);
-    
-    const points = monthlyData.map((d, i) => {
-      const x = padding + i * stepX;
-      const y = h - padding - ((d.value - 10) / (maxMonthly - 10 + 2)) * (h - padding * 2);
-      return `${x},${y}`;
-    });
-
-    const linePath = `M ${points.join(' L ')}`;
-    const areaPath = `${linePath} L ${padding + (monthlyData.length - 1) * stepX},${h} L ${padding},${h} Z`;
-    
-    return { linePath, areaPath };
-  };
-
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      {/* Chart 1: Bar Chart - Yearly Performance Trend */}
+      {/* Chart 1: Bar Chart - Tren Stunting Tahunan */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -102,9 +72,13 @@ const DashboardCharts: React.FC = () => {
           <div>
             <div className="flex items-center gap-2 mb-1">
               <BarChart3 size={16} className="text-primary" />
-              <h3 className="text-xs font-black text-text-main uppercase tracking-widest">Yearly Performance</h3>
+              <h3 className="text-xs font-black text-text-main uppercase tracking-widest">
+                Yearly Performance
+              </h3>
             </div>
-            <p className="text-[10px] text-text-muted font-medium">Data overview for the last 5 years</p>
+            <p className="text-[10px] text-text-muted font-medium">
+              Data overview for the last 5 years
+            </p>
           </div>
           <div className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500/10 rounded-xl">
             <TrendingDown size={14} className="text-emerald-500" />
@@ -150,9 +124,11 @@ const DashboardCharts: React.FC = () => {
                 />
 
                 {/* Year label */}
-                <span className={`text-[10px] font-bold transition-colors ${
-                  isLatest || isActive ? 'text-text-main' : 'text-text-muted/50'
-                }`}>
+                <span
+                  className={`text-[10px] font-bold transition-colors ${
+                    isLatest || isActive ? 'text-text-main' : 'text-text-muted/50'
+                  }`}
+                >
                   {item.year}
                 </span>
               </div>
@@ -172,9 +148,13 @@ const DashboardCharts: React.FC = () => {
           <div>
             <div className="flex items-center gap-2 mb-1">
               <PieChart size={16} className="text-primary" />
-              <h3 className="text-xs font-black text-text-main uppercase tracking-widest">Market Share Distribution</h3>
+              <h3 className="text-xs font-black text-text-main uppercase tracking-widest">
+                Market Share Distribution
+              </h3>
             </div>
-            <p className="text-[10px] text-text-muted font-medium">Composition of data across categories</p>
+            <p className="text-[10px] text-text-muted font-medium">
+              Composition of data across categories
+            </p>
           </div>
         </div>
 
@@ -187,10 +167,14 @@ const DashboardCharts: React.FC = () => {
             {/* Center text */}
             <div className="absolute inset-0 flex flex-col items-center justify-center">
               <span className="text-2xl font-black text-text-main">
-                {activeSlice !== null ? `${distributionData[activeSlice].value}%` : `${distributionData[0].value}%`}
+                {activeSlice !== null
+                  ? `${distributionData[activeSlice].value}%`
+                  : `${distributionData[0].value}%`}
               </span>
               <span className="text-[9px] font-bold text-text-muted uppercase tracking-wider">
-                {activeSlice !== null ? distributionData[activeSlice].label : distributionData[0].label}
+                {activeSlice !== null
+                  ? distributionData[activeSlice].label
+                  : distributionData[0].label}
               </span>
             </div>
           </div>
@@ -206,7 +190,10 @@ const DashboardCharts: React.FC = () => {
                 onMouseEnter={() => setActiveSlice(i)}
                 onMouseLeave={() => setActiveSlice(null)}
               >
-                <div className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: item.color }} />
+                <div
+                  className="w-3 h-3 rounded-full shrink-0"
+                  style={{ backgroundColor: item.color }}
+                />
                 <div className="flex-1 flex items-center justify-between">
                   <span className="text-[11px] font-bold text-text-main">{item.label}</span>
                   <span className="text-[11px] font-black text-text-muted">{item.value}%</span>
@@ -215,8 +202,6 @@ const DashboardCharts: React.FC = () => {
             ))}
           </div>
         </div>
-
-        
       </motion.div>
     </div>
   );
